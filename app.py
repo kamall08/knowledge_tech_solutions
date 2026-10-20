@@ -177,10 +177,12 @@ def create_app(test_config=None):
         instance_path = str(BASE_DIR / "instance")
 
     app = Flask(
-        __name__,
-        instance_path=instance_path,
-        instance_relative_config=True,
-    )
+    __name__,
+    template_folder=str(BASE_DIR / "templates"),
+    static_folder=str(BASE_DIR / "static"),
+    instance_path=instance_path,
+    instance_relative_config=True,
+)
 
     app.config.from_mapping(
         SECRET_KEY=os.getenv(
