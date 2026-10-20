@@ -42,12 +42,13 @@ class InquiryForm(FlaskForm):
     consent = BooleanField("I consent to Knowledge Tech Solutions processing this inquiry.", validators=[DataRequired(message="Consent is required to submit your inquiry.")])
     website = StringField("Leave this field empty", validators=[Optional(), Length(max=0, message="Submission could not be accepted.")])
 
-def create_app(test_config=None):
-    instance_path = (
-        "/tmp/knowledge-tech-solutions"
-        if os.getenv("VERCEL")
-        else str(BASE_DIR / "instance")
-    )
+
+instance_path = (
+    "/tmp/knowledge-tech-solutions"
+    if os.getenv("VERCEL") or os.getenv("VERCEL_ENV")
+    else str(BASE_DIR / "instance")
+)
+
 
     app = Flask(
         __name__,
